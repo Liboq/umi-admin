@@ -11,13 +11,13 @@
 1. **克隆项目**:
 
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/Liboq/umi-admin.git
    ```
 
 2. **进入项目目录**:
 
    ```bash
-   cd <project_directory>
+   cd umi-admin
    ```
 
 3. **构建和启动容器**:
