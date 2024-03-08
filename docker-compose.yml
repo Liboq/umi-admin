@@ -1,0 +1,42 @@
+version: '3'
+services:
+  frontend:
+    build: ./admin_front
+    ports:
+      - "8000:8000"
+    networks:
+      - umiadmin
+      
+  backend:
+    build: ./admin_back
+    ports:
+      - "1101:1101"
+    depends_on:
+      - mysql
+    networks:
+      - umiadmin
+
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - HOST_IP=$(ip route | awk 'NR==1 {print $3}')
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=umiadmin
+    volumes:
+      - /path/to/mysql/data:/var/lib/mysql
+    networks:
+      - umiadmin
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - /path/to/redis/data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - umiadmin
+networks:
+  umiadmin:

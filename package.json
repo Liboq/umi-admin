@@ -1,0 +1,14 @@
+{
+  "name": "hotel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "front:dev":"cd ./packages/admin_front && pnpm dev",
+    "end:dev":"cd ./packages/admin_back && pnpm start:dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
