@@ -1,14 +1,14 @@
-version: '3'
+version: '3.7'
 services:
   frontend:
-    build: ./admin_front
+    build: ./packages/admin_front
     ports:
       - "8000:8000"
     networks:
       - umiadmin
       
   backend:
-    build: ./admin_back
+    build: ./packages/admin_back
     ports:
       - "1101:1101"
     depends_on:
