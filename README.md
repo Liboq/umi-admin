@@ -11,13 +11,13 @@
 1. **克隆项目**:
 
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/Liboq/umi-admin.git
    ```
 
 2. **进入项目目录**:
 
    ```bash
-   cd <project_directory>
+   cd umi-admin
    ```
 
 3. **构建和启动容器**:
@@ -61,5 +61,4 @@
 ## 注意事项
 
 - 请确保本地的 8000、1101、3306 和 6379 端口没有被其他进程占用。
-- 请确保在项目根目录下替换 `<repository_url>` 和 `<project_directory>` 为实际的仓库 URL 和项目目录。
 - 请根据实际情况修改 Docker Compose 配置文件中的路径和环境变量。
