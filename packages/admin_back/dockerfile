@@ -1,6 +1,6 @@
-FROM node:16-alpine
-WORKDIR /nest-typeorm
-COPY package*.json /nest-typeorm/
+FROM node:latest
+WORKDIR /admin_back
+COPY package*.json /admin_back/
 
 # 安装 pnpm
 RUN npm install -g pnpm
@@ -12,15 +12,15 @@ COPY . .
 RUN pnpm run build
 
 # 设置 Nginx 镜像
-FROM nginx:alpine
+FROM nginx:latest
 # 复制 Nginx 配置文件
 COPY nginx.conf /etc/nginx/conf.d/admin_end.conf
 
-FROM node:16-alpine
+FROM node:latest
 
-COPY --from=0 /nest-typeorm/dist ./dist
+COPY --from=0 /admin_back/dist ./dist
 
-COPY --from=0 /nest-typeorm/node_modules ./node_modules
+COPY --from=0 /admin_back/node_modules ./node_modules
 
 EXPOSE 1101
 

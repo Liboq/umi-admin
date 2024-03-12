@@ -1,5 +1,11 @@
 import { Room } from 'src/room/entities/room.entity';
-import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({
   name: 'room_category',
@@ -20,6 +26,12 @@ export class RoomCategory {
   })
   description: string;
 
+  @Column({
+    comment: '',
+    default:
+      'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+  })
+  avator: string;
   @Column({
     comment: '是否可用',
     default: true,
