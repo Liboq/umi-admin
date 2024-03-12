@@ -1,3 +1,4 @@
+import AddForm from '@/components/Modal/Add';
 import services from '@/services/demo';
 import { createReservation } from '@/utils/request/Reservation';
 import { createRoom, getRoomList } from '@/utils/request/room';
@@ -16,8 +17,7 @@ import { Button, Divider, Drawer, message } from 'antd';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { queryReservation } from '../../../utils/request/Reservation/index';
 import CreateForm from './components/CreateForm';
-import ReservationForm from './components/Reservation';
-import UpdateForm, { FormValueType } from './components/UpdateForm';
+import { FormValueType } from './components/UpdateForm';
 
 const { deleteRoom, modifyRoom } = services.RoomController;
 
@@ -105,10 +105,7 @@ const Room: React.FC<unknown> = () => {
   const [reservationModalVisible, handleReservationModalVisible] =
     useState<boolean>(false);
 
-  const [updateModalVisible, handleUpdateModalVisible] =
-    useState<boolean>(false);
   const [descVisible, handledescVisible] = useState<boolean>(false);
-  const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
   const bookingRef = useRef<ActionType>();
 
@@ -327,7 +324,7 @@ const Room: React.FC<unknown> = () => {
           columns={columns}
         />
       </CreateForm>
-      <ReservationForm
+      <AddForm
         onCancel={() => handleReservationModalVisible(false)}
         modalVisible={reservationModalVisible}
       >
@@ -363,28 +360,7 @@ const Room: React.FC<unknown> = () => {
             />
           </ProForm.Group>
         </ProForm>
-      </ReservationForm>
-      {stepFormValues && Object.keys(stepFormValues).length ? (
-        <UpdateForm
-          onSubmit={async (value) => {
-            const success = await handleUpdate(value);
-            if (success) {
-              handleUpdateModalVisible(false);
-              setStepFormValues({});
-              if (actionRef.current) {
-                actionRef.current.reload();
-              }
-            }
-          }}
-          onCancel={() => {
-            handleUpdateModalVisible(false);
-            setStepFormValues({});
-          }}
-          updateModalVisible={updateModalVisible}
-          values={stepFormValues}
-        />
-      ) : null}
-
+      </AddForm>
       <Drawer
         width={800}
         open={descVisible}

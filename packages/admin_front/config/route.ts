@@ -27,18 +27,18 @@ export const route = [
     routes: [
       {
         name: '客房管理',
+        path: '',
+        component: './Manage/Default',
+      },
+      {
+        name: '客房管理',
         path: '/manage/room',
         component: './Manage/Room',
       },
       {
-        name: '入住管理',
-        path: '/manage/chekced',
-        component: './Manage/Checked',
-      },
-      {
-        name: '退房管理',
-        path: '/manage/checkout',
-        component: './Manage/Checkout',
+        name: '客房类型管理',
+        path: '/manage/category',
+        component: './Manage/Category',
       },
       {
         name: '员工管理',

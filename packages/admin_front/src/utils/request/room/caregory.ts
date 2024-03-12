@@ -5,11 +5,11 @@ export const getRoomCategoryList = () => {
   return request(RoomCategoryBaseUrl);
 };
 
-export const createRoomCategory = (data: API.RoomInfoVO) => {
+export const createRoomCategory = (data:any) => {
   return request(RoomCategoryBaseUrl, { method: 'post', data });
 };
 
-export const patchRoomCategory = (id: number, data: API.RoomInfoVO) => {
+export const patchRoomCategory = (id: number, data:any) => {
   return request(`${RoomCategoryBaseUrl}/${id}`, { method: 'patch', data });
 };
 export const getRoomCategoryInfo = (id: number) => {
