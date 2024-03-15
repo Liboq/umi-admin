@@ -21,8 +21,13 @@ export class RoomController {
     return this.roomService.create(createRoomDto);
   }
 
+  @Get()
+  findAll() {
+    return this.roomService.findAll();
+  }
+
   @UseGuards(LoginGuard)
-  @Get("query")
+  @Get('query')
   find(@Query() params) {
     return this.roomService.find(params);
   }

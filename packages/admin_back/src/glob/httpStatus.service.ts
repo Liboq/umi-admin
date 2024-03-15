@@ -4,6 +4,6 @@ import { Injectable, HttpException, HttpStatus, NestInterceptor } from '@nestjs/
 @Injectable()
 export class HttpStatusError {
     static fail(error, status = HttpStatus.BAD_REQUEST) {
-        throw new HttpException({statusCode: status, message: '请求失败', error}, status)
+        throw new HttpException({status, message: '请求失败', error}, status)
     }
 }

@@ -70,7 +70,7 @@ export class UserService {
      * 校验用户是否已存在
      */
     if (foundUser) {
-      throw new HttpException('用户已存在', 200);
+      throw new HttpException('用户已存在', 400);
     }
 
     const newUser = new User();

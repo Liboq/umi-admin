@@ -8,7 +8,7 @@ export class HttpStatusSuccess implements NestInterceptor{
     intercept(context: ExecutionContext, next: CallHandler) :Observable<any> {
         return next.handle().pipe(map(data => {
             return {
-                statusCode: HttpStatus.OK,
+                status: HttpStatus.OK,
                 message: '请求成功',
                 data
             }

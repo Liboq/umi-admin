@@ -15,6 +15,10 @@ export class RoomService {
     const res = await this.roomRepository.save(createRoomDto);
     return res;
   }
+  async findAll() {
+    const res = await this.roomRepository.find();
+    return res;
+  }
 
   async find(params) {
     const { pageSize, current, ...reset } = params;

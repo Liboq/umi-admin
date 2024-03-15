@@ -26,7 +26,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const message = exception instanceof HttpException ? exception.message : '';
     const responseBody = {
       message,
-      statusCode: httpStatus,
+      status: httpStatus,
       timestamp: new Date().toISOString(),
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
     };
