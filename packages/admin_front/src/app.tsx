@@ -1,35 +1,43 @@
 // 运行时配置
 import { BulbOutlined, LogoutOutlined } from '@ant-design/icons';
-import { RunTimeLayoutConfig, history, useNavigate } from '@umijs/max';
+import {
+  RunTimeLayoutConfig,
+  history,
+  useAccess,
+  useNavigate,
+} from '@umijs/max';
 import { Dropdown, MappingAlgorithm, MenuProps, theme } from 'antd';
 import { useAntdConfigSetter } from 'umi';
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
 export async function getInitialState(): Promise<{
-  name: string;
-  avatar: string;
-  userInfo?: API.UserInfo;
+  user_info?: API.UserInfo;
+  roles?: any[];
 }> {
+  let user_info;
+  let roleList;
   const fetchUserInfo = async () => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
+      const user_info = JSON.parse(localStorage.getItem('user_info') || '');
+      if (!token || !user_info) {
         history.push('/login');
       }
-      return token;
+      return { token, user_info };
     } catch (error) {
       history.push('/login');
     }
-    return undefined;
+    return { token: null, user_info: null };
   };
   if (history.location.pathname !== '/login') {
-    await fetchUserInfo();
+    const res = await fetchUserInfo();
+    const { roles, ...reset } = res.user_info;
+    user_info = reset;
+    roleList = roles;
   }
-
   return {
-    name: 'pikachu',
-    avatar:
-      'https://p26-passport.byteacctimg.com/img/user-avatar/312989b46037c16843b1eb44aea82fa2~180x180.awebp?',
+    user_info,
+    roles: roleList,
   };
 }
 
@@ -39,14 +47,14 @@ const RightMenu = ({ dom }) => {
   const setAntdConfig = useAntdConfigSetter();
   const DropdownItems: MenuProps['items'] = [
     {
-      key: 'logout',
-      icon: <LogoutOutlined />,
-      label: '退出登录',
-    },
-    {
       key: 'theme',
       icon: <BulbOutlined />,
       label: '切换主题',
+    },
+    {
+      key: 'logout',
+      icon: <LogoutOutlined />,
+      label: '退出登录',
     },
   ];
   const DropdownOnClick: MenuProps['onClick'] = ({ key }) => {
@@ -54,6 +62,7 @@ const RightMenu = ({ dom }) => {
       case 'logout':
         navigate('/login');
         localStorage.setItem('token', '');
+        localStorage.setItem('user_info', '');
         break;
       case 'theme':
         setAntdConfig((config: any) => {
@@ -81,7 +90,11 @@ const RightMenu = ({ dom }) => {
     </>
   );
 };
-export const layout: RunTimeLayoutConfig = ({ initialState }) => {
+export const layout: RunTimeLayoutConfig = ({ initialState }: any) => {
+  const { user_info } = initialState;
+  const access = useAccess();
+  console.log(access);
+
   return {
     logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
     menu: {
@@ -92,10 +105,10 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     },
     title: 'hot',
     layout: 'mix', //菜单的方式，有mix,top,side三种，这里用mix
-    splitMenus: true, // 这里用了mix才会生效,bia
+    splitMenus: true, // 这里用了mix才会生效
     avatarProps: {
-      src: initialState?.avatar || undefined, //右上角头像
-      title: initialState?.name || '用户', //右上角名称
+      src: initialState?.user_info?.avator || undefined, //右上角头像
+      title: initialState?.user_info?.name || '用户', //右上角名称
       size: 'small',
       render: (props, dom) => {
         return <RightMenu dom={dom} />;

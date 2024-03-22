@@ -19,5 +19,5 @@ export const login = (data: API.UserLoginVO) => {
   return request(UserBaseUrl + '/login', { method: 'post', data });
 };
 export const register = (data: API.UserInfo) => {
-  return request(UserBaseUrl + 'register', { method: 'post', data });
+  return request(UserBaseUrl + '/register', { method: 'post', data });
 };

@@ -39,9 +39,8 @@ export class UserController {
           name: foundUser.name,
         },
       });
-      res.setHeader('authorization', 'bearer ' + token);
-
-      return { token };
+      const { password, ...user_info } = foundUser;
+      return { token, user_info };
     } else {
       return 'login fail';
     }
@@ -53,9 +52,15 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @UseGuards(LoginGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
+  }
+
+  @Post('updateUserRoles')
+  updateUserRole(@Body() data) {
+    return this.userService.updateUserRoles(data);
   }
 
   @Patch(':id')

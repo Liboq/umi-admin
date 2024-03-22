@@ -55,6 +55,7 @@ declare namespace API {
     password?: string;
     email?: string;
     gender?: UserGenderEnum;
+    avator: string;
   }
 
   interface UserInfoVO {

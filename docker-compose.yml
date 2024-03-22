@@ -21,11 +21,11 @@ services:
     ports:
       - 3306:3306
     environment:
-      - HOST_IP=$(ip route | awk 'NR==1 {print $3}')
       - MYSQL_ROOT_PASSWORD=123456
       - MYSQL_DATABASE=umiadmin
     volumes:
       - /path/to/mysql/data:/var/lib/mysql
+      - /path/to/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - umiadmin
 
@@ -35,7 +35,7 @@ services:
       - 6379:6379
     volumes:
       - /path/to/redis/data:/data
-    command: redis-server --appendonly yes
+    command: redis-server --requrepass Lbq17607384217
     networks:
       - umiadmin
 networks:

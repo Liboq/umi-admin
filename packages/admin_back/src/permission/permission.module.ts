@@ -8,6 +8,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { PermissionGuard } from './permission.guard';
 import { UserService } from 'src/user/user.service';
 import { User } from 'src/user/entities/user.entity';
+import { Role } from 'src/role/entities/role.entity';
 
 @Module({
   controllers: [PermissionController],
@@ -19,6 +20,6 @@ import { User } from 'src/user/entities/user.entity';
       useClass: PermissionGuard,
     },
   ],
-  imports: [UserModule, TypeOrmModule.forFeature([Permission,User])],
+  imports: [UserModule, TypeOrmModule.forFeature([Permission,User,Role])],
 })
 export class PermissionModule {}

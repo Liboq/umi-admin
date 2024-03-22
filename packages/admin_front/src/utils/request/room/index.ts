@@ -4,6 +4,9 @@ const RoomBaseUrl = '/api/room';
 export const getRoomList = (params: API.RoomInfoVO) => {
   return request(RoomBaseUrl + '/query', { params });
 };
+export const getAllRoom = () => {
+  return request(RoomBaseUrl, {});
+};
 
 export const createRoom = (data: API.RoomInfoVO) => {
   return request(RoomBaseUrl, { method: 'post', data });

@@ -1,16 +1,27 @@
-import { HttpException, Inject, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  Inject,
+  Injectable,
+  Logger,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 import { User } from './entities/user.entity';
 import { md5 } from 'src/utils';
+import { Role } from 'src/role/entities/role.entity';
+import { log } from 'console';
 
 @Injectable()
 export class UserService {
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+    @InjectRepository(Role)
+    private readonly roleRepository: Repository<Role>,
+  ) {}
   private logger = new Logger();
-
-  @InjectRepository(User)
-  private userRepository: Repository<User>;
 
   async create(createUserDto) {
     const res = await this.userRepository.save(createUserDto);
@@ -50,9 +61,9 @@ export class UserService {
   }
   async login(user) {
     const foundUser = await this.userRepository.findOne({
-      where: { state: true, name: user.name }
+      where: { state: true, name: user.name },
+      relations: ['roles', 'roles.permissions'],
     });
-    
     if (!foundUser) {
       throw new UnauthorizedException('用户名不存在');
     }
@@ -84,6 +95,26 @@ export class UserService {
       this.logger.error(e, UserService);
       return '注册失败';
     }
+  }
+  async updateUserRoles(createRoleDto) {
+    const id = createRoleDto.userId;
+
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new UnauthorizedException('用户名不存在');
+    }
+    console.log(user);
+
+    //查询传入数组permissionIds的全部permission实体
+    const roles = await this.roleRepository.findBy({
+      id: In(createRoleDto.roleIds),
+    });
+    user.roles = roles
+    if (roles.length <= 0) {
+      throw new Error('roles not found');
+    }
+
+    return this.userRepository.save(user);
   }
   async findPermissionNames(token: string, userInfo) {
     const user = await this.userRepository.findOne({

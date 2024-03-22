@@ -1,4 +1,4 @@
-const Finnace = () => {
-  return <>Finnace</>;
+const Personnel = () => {
+  return <>Personnel</>;
 };
-export default Finnace;
+export default Personnel;

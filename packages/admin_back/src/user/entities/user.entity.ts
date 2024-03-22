@@ -22,8 +22,8 @@ export class User {
 
   @Column({
     comment: '头像',
-    length: 50,
-    default: '',
+    length: 1000,
+    default: 'https://p26-passport.byteacctimg.com/img/user-avatar/312989b46037c16843b1eb44aea82fa2~180x180.awebp?',
   })
   avator: string;
 

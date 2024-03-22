@@ -1,4 +1,4 @@
-import { notification } from 'antd';
+import { notification, message } from 'antd';
 import axios, { AxiosRequestHeaders } from 'axios';
 
 const { UMI_APP_BASEURL } = process.env;
@@ -25,14 +25,6 @@ instance.interceptors.response.use(
     console.log(response);
 
     const { data } = response;
-    const { statusCode } = data;
-    console.log(data);
-
-    if (statusCode !== 200) {
-      notification.error({
-        message: data.message,
-      });
-    }
     data.success = true;
 
     return data;
@@ -40,7 +32,12 @@ instance.interceptors.response.use(
   //状态码不为2xx的时候执行
   (error) => {
     const { response } = error;
-    console.log(response);
+    const {status,data} =response
+    if (status !== 200) {
+      notification.error({
+        message:data.message
+      });
+    }
 
     return Promise.reject(error);
   },
