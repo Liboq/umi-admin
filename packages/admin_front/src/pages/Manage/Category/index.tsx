@@ -18,9 +18,9 @@ import { useRef, useState } from 'react';
 
 type Category = {
   id: number;
-  name: String;
-  desciption: String;
-  state: Boolean;
+  name: string;
+  desciption: string;
+  state: boolean;
 };
 
 const Category = () => {
@@ -140,7 +140,7 @@ const Category = () => {
           },
         }}
       />
-      <AddForm onCancel={() => setAddVisible(false)} modalVisible={addVisible}>
+      <AddForm width={420} onCancel={() => setAddVisible(false)} modalVisible={addVisible}>
         <ProForm
           initialValues={{
             name: '',

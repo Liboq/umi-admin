@@ -31,6 +31,7 @@ export class UserService {
   async findAll() {
     return this.userRepository.find({
       where: { state: true },
+      relations: ['roles'],
       select: ['name', 'avator', 'id', 'mobile'],
     });
   }
@@ -109,7 +110,7 @@ export class UserService {
     const roles = await this.roleRepository.findBy({
       id: In(createRoleDto.roleIds),
     });
-    user.roles = roles
+    user.roles = roles;
     if (roles.length <= 0) {
       throw new Error('roles not found');
     }

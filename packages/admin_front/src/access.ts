@@ -1,6 +1,7 @@
 import { hasPermisson } from './utils';
 
-export default function access(initialState: any) {
+export default function access(initialState={roles:[]}) {
+  console.log();
   const { roles } = initialState;
   const menuList: any[] = [];
   if (Array.isArray(roles)) {
@@ -18,7 +19,7 @@ export default function access(initialState: any) {
     adminManageRoom: hasPermisson(menuList, 'adminManageRoom'),
     adminManageRoomCategory: hasPermisson(menuList, 'adminManageRoomFinance'),
     adminResourcePersonnel: hasPermisson(menuList, 'adminResourcePersonnel'),
-    adminResourceRole: hasPermisson(menuList, 'adminResourceRole'),
+    adminResourceRole: true,
     adminResourcePermission: hasPermisson(menuList, 'adminResourcePermission'),
   };
 }

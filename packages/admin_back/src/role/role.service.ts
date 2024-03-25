@@ -14,25 +14,50 @@ export class RoleService {
     @InjectRepository(Permission)
     private permissionRepository: Repository<Permission>,
   ) {}
-  async create(createRoleDto: CreateRoleDto) {
+  async create(createRoleDto) {
+    const { name, desc, permissions: permissionIds } = createRoleDto;
+
     //查询传入数组permissionIds的全部permission实体
-    const permissions = await this.permissionRepository.find({
-      where: {
-        id: In(createRoleDto.permissionIds),
-      },
-    });
-    const name = createRoleDto.name;
-    const existRole = await this.roleRepository.findOne({
-      where: { name },
+    const permissions = await this.permissionRepository.findBy({
+      id: In(permissionIds),
     });
 
-    if (existRole) throw new HttpException('角色已存在', 0.4);
-    return this.roleRepository.save({ permissions, name });
+    if (!createRoleDto.id) {
+      const existRole = await this.roleRepository.findOne({
+        where: { name },
+      });
+      if (existRole) throw new HttpException('角色已存在', 0.4);
+      return this.roleRepository.save({
+        permissions,
+        name,
+        desc,
+      });
+    }
+
+    return this.roleRepository.save({
+      id: createRoleDto.id,
+      permissions,
+      name,
+      desc,
+    });
   }
 
-  findAll() {
-    const res = this.roleRepository.find();
-    return res;
+  async findAll() {
+    const res = await this.roleRepository.find({
+      relations: ['permissions'],
+    });
+    const data = res.map((entity) => ({
+      ...entity,
+      updateTime: entity.updateTime.toLocaleString('zh-CN', {
+        hour12: false,
+        timeZone: 'Asia/Shanghai',
+      }),
+      createTime: entity.updateTime.toLocaleString('zh-CN', {
+        hour12: false,
+        timeZone: 'Asia/Shanghai',
+      }),
+    }));
+    return data;
   }
 
   findOne(id: number) {

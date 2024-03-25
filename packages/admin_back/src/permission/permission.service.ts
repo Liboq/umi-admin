@@ -12,7 +12,6 @@ export class PermissionService {
     private permissionRepository: Repository<Permission>,
   ) {}
   async create(createPermissionDto) {
-
     const name = createPermissionDto.name;
     const existPermission = await this.permissionRepository.findOne({
       where: { name },
@@ -22,9 +21,20 @@ export class PermissionService {
     return await this.permissionRepository.save(createPermissionDto);
   }
 
-  findAll() {
-    const res = this.permissionRepository.find();
-    return res;
+  async findAll() {
+    const res = await this.permissionRepository.find();
+    const data = res.map((entity) => ({
+      ...entity,
+      updateTime: entity.updateTime.toLocaleString('zh-CN', {
+        hour12: false,
+        timeZone: 'Asia/Shanghai',
+      }),
+      createTime: entity.updateTime.toLocaleString('zh-CN', {
+        hour12: false,
+        timeZone: 'Asia/Shanghai',
+      }),
+    }));
+    return data;
   }
 
   findOne(id: number) {

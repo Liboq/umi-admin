@@ -327,6 +327,7 @@ const Room: React.FC<unknown> = () => {
       <AddForm
         onCancel={() => handleReservationModalVisible(false)}
         modalVisible={reservationModalVisible}
+        width={420}
       >
         <ProForm
           initialValues={{

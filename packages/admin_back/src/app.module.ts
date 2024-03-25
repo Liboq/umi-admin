@@ -41,6 +41,7 @@ import { Reservation } from './reservation/entities/reservation.entity';
       connectorPackage: 'mysql2',
       extra: {
         authPlugin: 'sha256_password',
+        timezone: 'Asia/Shanghai', // 设置时区为中国
       },
     }),
     RoomModule,
