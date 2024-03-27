@@ -236,8 +236,6 @@ const Room: React.FC<unknown> = () => {
   ];
   const handleBooking = async (form: any) => {
     const { dateRange, customerName } = form;
-    console.log(customerName);
-
     const params: API.ReservationInfoVO = {
       roomId: row!.id,
       customerName: customerName || '',

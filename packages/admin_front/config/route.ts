@@ -60,16 +60,10 @@ export const route = [
         access: 'adminResourcePersonnel',
       },
       {
-        name: '权限管理',
+        name: '角色管理',
         path: '/resource/role',
         component: './Resource/Role',
         access: 'adminResourceRole',
-      },
-      {
-        name: '角色管理',
-        path: '/resource/permission',
-        component: './Resource/Permission',
-        access: 'adminResourcePermission',
       },
     ],
   },

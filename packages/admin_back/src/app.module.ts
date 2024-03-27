@@ -29,10 +29,10 @@ import { Reservation } from './reservation/entities/reservation.entity';
     UserModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '127.0.0.1',
+      host: '150.158.213.45',
       port: 3306,
       username: 'root',
-      password: '123456',
+      password: 'Lbq17607384217',
       database: 'umiadmin',
       synchronize: true,
       logging: true,

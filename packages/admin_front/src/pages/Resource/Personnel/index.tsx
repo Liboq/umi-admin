@@ -1,11 +1,11 @@
 import AddForm from '@/components/Modal/Add';
-import { createRole, getRoleList } from '@/utils/request/Role';
-import { getUserList } from '@/utils/request/user';
+import { listToTree } from '@/utils';
+import { getRoleList } from '@/utils/request/Role';
+import { getUserList, updateUserRoles } from '@/utils/request/user';
 import { ActionType, PageContainer, ProList } from '@ant-design/pro-components';
 import { Button, Input, Popconfirm, Space, Tag, Tree, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import './index.less';
-import { listToTree } from '@/utils';
 const defaultData = [
   {
     id: 1,
@@ -26,7 +26,7 @@ type DataItemList = Partial<DataItem>;
 const Personnel = () => {
   const [dataSource, setDataSource] = useState<DataItemList[]>(defaultData);
   const [treeData, setTreeData] = useState<DataItemList[]>(defaultData);
-  const [selectRole, setSelectRole] = useState<DataItemList>();
+  const [selectUser, setSelectUser] = useState<DataItemList>();
   const [editVisible, setEditVisible] = useState(false);
   const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
   const [checkedKeys, setCheckedKeys] = useState<React.Key[]>([]);
@@ -34,7 +34,7 @@ const Personnel = () => {
   const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
   const getRolesList = async () => {
     const res = await getRoleList();
-    const treeDatas = listToTree(res.data)
+    const treeDatas = listToTree(res.data);
     setTreeData(treeDatas);
     return res;
   };
@@ -58,7 +58,7 @@ const Personnel = () => {
     const checkedKeyArr = row.roles.map((item) => {
       return item.id;
     });
-    setSelectRole(row);
+    setSelectUser(row);
     console.log(checkedKeyArr);
     setCheckedKeys(checkedKeyArr);
     // setSelectedKeys(checkedKeyArr);
@@ -74,7 +74,7 @@ const Personnel = () => {
 
   const onCheck = (checkedKeysValue: React.Key[]) => {
     console.log('onCheck', checkedKeysValue);
-    setSelectRole({ ...selectRole, roles: checkedKeysValue });
+    setSelectUser({ ...selectUser, roles: checkedKeysValue });
     setCheckedKeys(checkedKeysValue);
   };
 
@@ -83,7 +83,7 @@ const Personnel = () => {
     setSelectedKeys(selectedKeysValue);
   };
   const confirm = async () => {
-    const res = await createRole(selectRole);
+    const res = await updateUserRoles(selectUser);
     if (res.status === 200) {
       setEditVisible(false);
       refresh();
@@ -94,7 +94,7 @@ const Personnel = () => {
   };
 
   const cancel = () => {
-    setSelectRole({});
+    setSelectUser({});
     message.error('Click on No');
   };
 
@@ -134,10 +134,7 @@ const Personnel = () => {
             render: (text, row) => [
               <Button type="link" onClick={() => editRole(row)} key="link">
                 编辑角色
-              </Button>,
-              <Button danger key="link" type="text">
-                删除
-              </Button>,
+              </Button>
             ],
           },
         }}
@@ -152,9 +149,9 @@ const Personnel = () => {
             <div className="role-container-editor-form-item-left">name</div>
             <div className="role-container-editor-form-item-right">
               <Input
-                value={selectRole?.name}
+                value={selectUser?.name}
                 onChange={(e) => {
-                  setSelectRole({ ...selectRole, name: e.currentTarget.value });
+                  setSelectUser({ ...selectUser, name: e.currentTarget.value });
                 }}
               />
             </div>
@@ -163,17 +160,18 @@ const Personnel = () => {
             <div className="role-container-editor-form-item-left">mobile</div>
             <div className="role-container-editor-form-item-right">
               <Input.TextArea
-                value={selectRole?.mobile}
+                value={selectUser?.mobile}
                 onChange={(e) => {
-                  setSelectRole({ ...selectRole, mobile: e.currentTarget.value });
+                  setSelectUser({
+                    ...selectUser,
+                    mobile: e.currentTarget.value,
+                  });
                 }}
               />
             </div>
           </div>
           <div className="role-container-editor-form-item">
-            <div className="role-container-editor-form-item-left">
-              roles
-            </div>
+            <div className="role-container-editor-form-item-left">roles</div>
             <div className="role-container-editor-form-item-right">
               <Tree
                 checkable

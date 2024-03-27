@@ -134,7 +134,7 @@ const Role = () => {
               <Button type="link" onClick={() => editRole(row)} key="link">
                 编辑权限
               </Button>,
-              <Button danger key="link" type="text">
+              <Button danger key="del" type="text">
                 删除
               </Button>,
             ],

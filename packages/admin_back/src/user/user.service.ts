@@ -98,7 +98,9 @@ export class UserService {
     }
   }
   async updateUserRoles(createRoleDto) {
-    const id = createRoleDto.userId;
+    console.log(createRoleDto);
+
+    const {id} = createRoleDto;
 
     const user = await this.findOne(id);
     if (!user) {
@@ -108,7 +110,7 @@ export class UserService {
 
     //查询传入数组permissionIds的全部permission实体
     const roles = await this.roleRepository.findBy({
-      id: In(createRoleDto.roleIds),
+      id: In(createRoleDto.roles),
     });
     user.roles = roles;
     if (roles.length <= 0) {

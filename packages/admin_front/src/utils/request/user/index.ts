@@ -21,3 +21,6 @@ export const login = (data: API.UserLoginVO) => {
 export const register = (data: API.UserInfo) => {
   return request(UserBaseUrl + '/register', { method: 'post', data });
 };
+export const updateUserRoles = (data: API.UserInfoVO) => {
+  return request(`${UserBaseUrl}/updateUserRoles`, { method: 'post', data });
+};
