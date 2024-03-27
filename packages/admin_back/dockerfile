@@ -22,6 +22,6 @@ COPY --from=0 /admin_back/dist ./dist
 
 COPY --from=0 /admin_back/node_modules ./node_modules
 
-EXPOSE 1101
-
 CMD node dist/main.js
+
+EXPOSE 1101
