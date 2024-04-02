@@ -29,14 +29,5 @@ services:
     networks:
       - umiadmin
 
-  redis:
-    image: redis
-    ports:
-      - 6379:6379
-    volumes:
-      - /path/to/redis/data:/data
-    command: redis-server --requrepass Lbq17607384217
-    networks:
-      - umiadmin
 networks:
   umiadmin:
