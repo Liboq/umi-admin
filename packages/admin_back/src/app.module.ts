@@ -17,6 +17,7 @@ import { Role } from './role/entities/role.entity';
 import { Permission } from './permission/entities/permission.entity';
 import { ReservationModule } from './reservation/reservation.module';
 import { Reservation } from './reservation/entities/reservation.entity';
+import { EventGateway } from './events/events.gateway';
 @Module({
   imports: [
     JwtModule.register({
@@ -54,6 +55,7 @@ import { Reservation } from './reservation/entities/reservation.entity';
   providers: [
     AppService,
     { provide: APP_FILTER, useClass: HttpExceptionFilter },
+    EventGateway
   ],
 })
 export class AppModule {}

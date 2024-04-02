@@ -15,6 +15,7 @@ export default function access(initialState = { roles: [] }) {
     //个人中心权限
     adminManage: hasPermisson(menuList, 'adminManage'),
     adminHome: true,
+    adminHomeChat: true,
     adminManageHotel: hasPermisson(menuList, 'adminManageHotel'),
     adminManageRoom: hasPermisson(menuList, 'adminManageRoom'),
     adminManageRoomCategory: hasPermisson(menuList, 'adminManageRoomFinance'),

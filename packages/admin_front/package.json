@@ -17,7 +17,8 @@
     "@ant-design/pro-components": "^2.6.49",
     "@umijs/max": "^4.1.1",
     "antd": "^5.14.1",
-    "axios": "^1.6.7"
+    "axios": "^1.6.7",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.57",

@@ -15,6 +15,20 @@ export const route = [
     path: '/home',
     component: './Home',
     access: 'adminHome',
+    routes: [
+      {
+        name: '酒店管理',
+        path: '',
+        component: './Home/Default',
+        access: 'adminHome',
+      },
+      {
+        name: '聊天室',
+        path: '/home/chat',
+        component: './Home/Chat',
+        access: 'adminHomeChat',
+      },
+    ],
   },
   {
     name: '酒店管理',
