@@ -23,7 +23,7 @@ export const route = [
         access: 'adminHome',
       },
       {
-        name: '聊天室',
+        name: '摸鱼室',
         path: '/home/chat',
         component: './Home/Chat',
         access: 'adminHomeChat',

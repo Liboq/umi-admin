@@ -6,10 +6,11 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { useModel, useNavigate } from '@umijs/max';
-import { Tabs, theme } from 'antd';
+import { Flex, Tabs, theme } from 'antd';
 import { useRef, useState } from 'react';
 import { register } from '../../utils/request/user/index';
 type tabType = 'login' | 'register';
+import './index.less'
 
 const Login = () => {
   const { token } = theme.useToken();
@@ -53,13 +54,15 @@ const Login = () => {
     }
   };
   return (
-    <div
-      style={{ backgroundColor: token.colorBgContainer, marginTop: '100px' }}
+    <Flex
+    className='login-container'
+      style={{ backgroundColor: token.colorBgContainer }}
     >
+      <img src="https://cdn.liboqiao.top/markdown/umiadmin.jpg" className='login-logo' alt="" />
+      <div className='login-form'>
       <LoginForm
-        logo="https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg"
-        title="Github"
-        subTitle="全球最大的代码托管平台"
+        logo="https://cdn.liboqiao.top/markdown/umiadmin-white.jpg"
+        title="umi-admin"
         onFinish={handleSubmit}
         formRef={formRef}
       >
@@ -246,7 +249,8 @@ const Login = () => {
           </a>
         </div>
       </LoginForm>
-    </div>
+      </div>
+    </Flex>
   );
 };
 export default Login;

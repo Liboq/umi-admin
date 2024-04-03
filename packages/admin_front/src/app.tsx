@@ -96,7 +96,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }: any) => {
   console.log(access);
 
   return {
-    logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
+    logo: 'https://cdn.liboqiao.top/markdown/umiadmin-white.jpg',
     menu: {
       locale: false,
     },
