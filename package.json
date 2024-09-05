@@ -8,7 +8,7 @@
     "end:dev":"cd ./packages/admin_back && pnpm start:dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["umi","admin"],
+  "author": "Liboq",
   "license": "ISC"
 }

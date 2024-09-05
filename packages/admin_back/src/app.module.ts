@@ -33,7 +33,7 @@ import { EventGateway } from './events/events.gateway';
       host: '150.158.213.45',
       port: 3306,
       username: 'root',
-      password: 'Lbq17607384217',
+      password: 'lbq991101!',
       database: 'umiadmin',
       synchronize: true,
       logging: true,

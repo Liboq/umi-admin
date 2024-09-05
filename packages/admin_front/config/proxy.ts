@@ -1,6 +1,6 @@
 export const proxyConfig = {
   '/api': {
-    target: 'http://127.0.0.1:1101',
+    target: 'http://150.158.213.45:1101',
     changeOrigin: true,
     pathRewrite: { '^/api': '' },
   },

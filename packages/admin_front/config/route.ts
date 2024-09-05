@@ -11,6 +11,13 @@ export const route = [
     layout: false,
   },
   {
+    name: '摸鱼室',
+    path: '/chat',
+    component: './Home/Chat',
+    hideInMenu: true,
+    layout: false,
+  },
+  {
     name: '首页',
     path: '/home',
     component: './Home',
